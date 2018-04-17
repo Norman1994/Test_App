@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication4.Entites.Documents>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Главная страница пользователя</h2>
+
+<p>
+    <a asp-action="Create">Добавить новый документ</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Название документа
+        </th>
+        <th>
+            Входящий номер документа
+        </th>
+        <th>
+            Дата добавления
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.DocumentExternNumber!= null)
+        {
+        <tr style="background:#ff9933">
+            <td>
+                @Html.DisplayFor(modelItem => item.DocumentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DocumentIntroNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateIntro)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DocumentId">Снять с учёта</a> |
+                <a asp-action="GetFile" asp-route-id="@item.DocumentId">Скачать файл</a>
+            </td>
+        </tr>
+        }
+        else if (item.DocumentExternNumber == null)
+        { 
+            <tr style="background:#009933">
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentIntroNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateIntro)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DocumentId">Снять с учёта</a> |
+                    <a asp-action="GetFile" asp-route-id="@item.DocumentId">Загрузить файл</a>
+                </td>
+                </tr>
+        }
+    }
+</table>
